@@ -1,0 +1,16 @@
+{
+  "name": "@raghavgpt001/medium-common",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@raghavgpt001/medium-common": "^1.0.1",
+    "zod": "^3.22.4"
+  }
+}
