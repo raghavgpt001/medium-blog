@@ -24,7 +24,12 @@ user.post('/signup', async (c) => {
         message: "Invalid Inputs"
       })
     }
+    const user = await prisma.user.findUnique({where: {email: body.email}});
 
+    if(user){
+        c.status(403);
+        return c.json({message: "Email already taken"})
+    }
     try{
       const user = await prisma.user.create({
         data: {
@@ -37,7 +42,7 @@ user.post('/signup', async (c) => {
       return c.json({jwt}); 
     } catch(e){
       c.status(403);
-      return c.json({error: "error while signing up"})
+      return c.json({message: "error while signing up"})
     }
   })
   
@@ -58,8 +63,8 @@ user.post('/signin', async(c) => {
     const user = await prisma.user.findUnique({where: {email: body.email, password: body.password}});
     if(!user){
       c.status(403);
-      return c.json({error: "user not found"});
-    }else{
+      return c.json({message: "Incorrect Credentials"});
+    } else{
       const jwt = await sign({id: user.id},c.env.JWT_SECRET);
       return c.json({jwt})
     }

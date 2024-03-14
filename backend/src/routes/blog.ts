@@ -19,7 +19,7 @@ blog.use('/*', async(c, next)=>{
       const jwt = c.req.header('Authorization');
       if(!jwt){
         c.status(403);
-        return c.json({error: "unauthorized"});
+        return c.json({message: "unauthorized"});
       }
       const token = jwt.split(' ')[1];
     
@@ -28,7 +28,7 @@ blog.use('/*', async(c, next)=>{
       await next();
     } catch(err){
       c.status(403);
-      return c.json({error: "unauthorized"});
+      return c.json({message: "unauthorized"});
     }
 })
   
@@ -96,7 +96,7 @@ blog.get('/bulk', async (c) => {
         console.log(posts)
         return c.json(posts);
     } catch(err){
-        return c.json({error: err})
+        return c.json({message: err})
     }
 })
 
