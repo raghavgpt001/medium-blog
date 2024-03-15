@@ -16,15 +16,15 @@ const blog = new Hono<{
 
 blog.use('/*', async(c, next)=>{
     try{
-      const jwt = c.req.header('Authorization');
+      const jwt = c.req.header('Authorization') || "";
+      console.log(jwt)
       if(!jwt){
         c.status(403);
         return c.json({message: "unauthorized"});
       }
       const token = jwt.split(' ')[1];
-    
-      const decoded = await verify(token, c.env.JWT_SECRET);
-      c.set('userId',decoded.id)
+      const user = await verify(token, c.env.JWT_SECRET);
+      c.set('userId',user.id)
       await next();
     } catch(err){
       c.status(403);
@@ -92,7 +92,19 @@ blog.get('/bulk', async (c) => {
 	}).$extends(withAccelerate());
 	try{
         console.log("posts")
-        const posts = await prisma.blog.findMany({});
+        const posts = await prisma.blog.findMany({
+            select: {
+                content: true,
+                title: true,
+                id: true,
+                authorId: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        });
         console.log(posts)
         return c.json(posts);
     } catch(err){
@@ -106,11 +118,28 @@ blog.get('/:id', async(c) => {
         datasourceUrl: c.env.DATABASE_URL
     }).$extends(withAccelerate());
 
-    const post = await prisma.blog.findUnique({
-        where: {id: Number(id)}
-    })
-    
-    return c.json(post)
+    try{
+        const post = await prisma.blog.findFirst({
+            where: {id: Number(id)},
+            select: {
+                id: true,
+                title: true,
+                content: true,
+                author: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
+        })
+        
+        return c.json(post)
+    } catch(e) {
+        c.status(411);
+        return c.json({
+            message: "Error while fetching blog post"
+        });
+    }
 })
 
 
