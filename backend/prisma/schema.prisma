@@ -19,6 +19,7 @@ model User {
   name     String?
   password String
   blogs    Blog[]
+  catchphrase String?
 }
 
 model Blog {
@@ -28,4 +29,5 @@ model Blog {
   published Boolean  @default(false)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  Int
+  date      String   @default(dbgenerated("DATE_TRUNC('day', CURRENT_DATE)"))
 }

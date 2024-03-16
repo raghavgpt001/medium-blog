@@ -12,7 +12,7 @@ export const FullBlog = ({ blog }: {blog: Blog}) => {
                         {blog.title}
                     </div>
                     <div className="text-slate-500 pt-2">
-                        Post on 2nd December 2023
+                        Posted on {blog.date.split(' ')[0]}
                     </div>
                     <div className="pt-4">
                         {blog.content}
@@ -31,7 +31,7 @@ export const FullBlog = ({ blog }: {blog: Blog}) => {
                                 {blog.author.name || "Anonymous"}
                             </div>
                             <div className="pt-2 text-slate-500">
-                                Random catch phrase about the author's ability to grab the user's attention
+                                {blog.author.catchphrase || "Every word you write is a step closer to your reader's heart."}
                             </div>
                         </div>
                     </div>  

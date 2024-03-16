@@ -35,7 +35,8 @@ user.post('/signup', async (c) => {
         data: {
           email: body.email,
           password: body.password,
-          name: body.name
+          name: body.name,
+          catchphrase: body.catchphrase
         }
       });
       const jwt = await sign({id: user.id}, c.env.JWT_SECRET);

@@ -102,7 +102,8 @@ blog.get('/bulk', async (c) => {
                     select: {
                         name: true
                     }
-                }
+                },
+                date: true
             }
         });
         console.log(posts)
@@ -127,9 +128,11 @@ blog.get('/:id', async(c) => {
                 content: true,
                 author: {
                     select: {
-                        name: true
+                        name: true,
+                        catchphrase: true
                     }
-                }
+                },
+                date: true
             }
         })
         

@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { Appbar } from '../components/Appbar';
 import axios from 'axios'
 import { BACKEND_URL } from '../config';
+import { decode  } from 'hono/jwt'
+
 
 export const Publish = ()=>{
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const navigate = useNavigate();
+    const author = decode(`${localStorage.getItem("token")}`).id;
 
     return <div>
         <Appbar/>
@@ -21,10 +24,10 @@ export const Publish = ()=>{
                }}/> 
             <button onClick={async()=>{
                 const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
-                    title, content: description
+                    title, content: description, authorId: author.id
                 }, {
                     headers: {
-                        Authorization: localStorage.getItem("token")
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
                     }
                 })
                 navigate(`/blog/${response.data.id}`)

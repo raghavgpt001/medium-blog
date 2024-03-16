@@ -7,8 +7,10 @@ export interface Blog {
     "title": string;
     "id": number;
     "author": {
-        "name": string
-    }
+        "name": string;
+        "catchphrase": string
+    };
+    "date": string 
 }
 
 export const useBlogs = () =>{
