@@ -7,7 +7,7 @@ export const Quote = () =>{
                     "I've had the pleasure of interacting with like-minded individuals from around the globe, exchanging ideas, supporting each other's work, and building genuine connections that extend beyond the digital realm"
                 </div>
                 <div className="max-w-md  text-xl font-semibold mt-4">
-                    Chetan Bhagat
+                    Ruskin Bond
                 </div>
                 <div className="max-w-md  text-sm font-light text-slate-400">
                     CEO | K Ventures

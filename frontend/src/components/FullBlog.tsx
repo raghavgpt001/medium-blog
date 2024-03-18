@@ -24,11 +24,11 @@ export const FullBlog = ({ blog }: {blog: Blog}) => {
                     </div>
                     <div className="flex w-full">
                         <div className="pr-4 flex flex-col justify-center">
-                            <Avatar size="big" name={blog.author.name || "Anonymous"} />
+                            <Avatar size="big" name={blog.author.name } />
                         </div>
                         <div>
                             <div className="text-xl font-bold">
-                                {blog.author.name || "Anonymous"}
+                                {blog.author.name}
                             </div>
                             <div className="pt-2 text-slate-500">
                                 {blog.author.catchphrase || "Every word you write is a step closer to your reader's heart."}

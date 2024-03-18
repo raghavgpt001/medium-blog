@@ -10,9 +10,10 @@ export const Publish = ()=>{
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const navigate = useNavigate();
-    const author = decode(`${localStorage.getItem("token")}`).id;
+    const authorId = decode(`${localStorage.getItem("token")}`).payload.id;
 
-    return <div>
+    return (
+    <div>
         <Appbar/>
         <div className="flex justify-center w-full pt-8">
             <div className="max-w-screen-lg w-full">
@@ -24,7 +25,7 @@ export const Publish = ()=>{
                }}/> 
             <button onClick={async()=>{
                 const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
-                    title, content: description, authorId: author.id
+                    title, content: description, authorId
                 }, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -34,9 +35,9 @@ export const Publish = ()=>{
             }} type="submit" className="mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
                 Publish Post
             </button>
-                </div>
+            </div>
         </div>
-    </div>
+    </div>)
 }
 
 const TextEditor = ({onChange}: {onChange: (e: ChangeEvent<HTMLTextAreaElement>)=> void})=> {

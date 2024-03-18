@@ -35,11 +35,11 @@ user.post('/signup', async (c) => {
         data: {
           email: body.email,
           password: body.password,
-          name: body.name,
+          name: body.name.replace(/\b\w/g, (char: string) => char.toUpperCase()) || "Anonymous",
           catchphrase: body.catchphrase
         }
       });
-      const jwt = await sign({id: user.id}, c.env.JWT_SECRET);
+      const jwt = await sign({id: user.id, name: user.name}, c.env.JWT_SECRET);
       return c.json({jwt}); 
     } catch(e){
       c.status(403);
@@ -66,7 +66,7 @@ user.post('/signin', async(c) => {
       c.status(403);
       return c.json({message: "Incorrect Credentials"});
     } else{
-      const jwt = await sign({id: user.id},c.env.JWT_SECRET);
+      const jwt = await sign({id: user.id, name: user.name},c.env.JWT_SECRET);
       return c.json({jwt})
     }
   })
