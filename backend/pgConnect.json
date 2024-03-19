@@ -5,7 +5,7 @@
             "Group": "GROUP_TEST",
             "Host": "pg-337fc3ae-raghavgpt001-1cba.a.aivencloud.com",
             "Port": 26818,
-            "MaintenanceDB": "defaultdb",
+            "MaintenanceDB": "medium-blog",
             "Username": "avnadmin",
             "SSLMode": "require"
         }
