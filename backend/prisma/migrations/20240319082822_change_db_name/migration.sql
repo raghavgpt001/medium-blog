@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Blog" ALTER COLUMN "date" SET DEFAULT DATE_TRUNC('day', CURRENT_DATE);
